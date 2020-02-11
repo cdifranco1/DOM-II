@@ -3,8 +3,8 @@
 
 //Event handlers
 function skewElement(e){
-  e.target.style = `transform: skewX(-25deg);
-                    transition: transform 2s;`;
+  e.target.style = `transform: skewX(-50deg);
+                    transition: transform 1s;`;
   setTimeout(() => e.target.style.transform = 'none', 1000)
 };
 
@@ -35,24 +35,27 @@ function changeBg(element, color){
 
 //Element selectors
 let buttons = document.querySelectorAll('.btn');
-let funBus = document.querySelector('.intro img')
+let bus = document.querySelector('.intro img')
 let images = document.querySelectorAll('img')
 let body = document.querySelector('body')
 let navLinks = document.querySelectorAll(".nav-link")
+let logo = document.querySelector(".logo-heading")
+let midImages = document.querySelectorAll(".content-section img")
+let paragraphs = document.querySelectorAll("p")
+
 
 
 
 //Event listeners
-funBus.addEventListener("mouseover", skewElement)
+logo.addEventListener("mouseover", skewElement)
 
-images.forEach((a) => a.addEventListener("dblclick", zoom))
+bus.addEventListener("dblclick", zoom)
 
 body.addEventListener("keydown", rotateImg)
 
 window.addEventListener('resize', () => changeBg(document.querySelector('.home'), 'pink'))
 
 buttons.forEach((button) => {
-  console.log(button);
   button.addEventListener("click", () => {
     changeBg(button, 'red')
   })
@@ -60,7 +63,6 @@ buttons.forEach((button) => {
 
 navLinks.forEach((link) => {
   link.addEventListener("mouseenter", () => {
-      console.log(link.style)
       link.style.transform = 'translate(20px, 20px)'
       link.style.transition = 'transform 1s'
   })
@@ -68,16 +70,44 @@ navLinks.forEach((link) => {
 
 navLinks.forEach((link) => {
   link.addEventListener("mouseleave", () => {
-      console.log(link.style)
       link.style.transform = 'translate(0)'
   })
 })
 
 window.addEventListener("scroll", () => {
-  console.log('scroll')
   body.style.backgroundColor = "yellow";
 }, {once: true});
 
 
+midImages.forEach((img) => img.addEventListener("click", () => {
+  img.style.transform = "translate(-30px)"
+  img.style.transition = "transform 1s"
+}))
 
 
+body.addEventListener("keydown", (e) => {
+  paragraphs.forEach((p) => {
+    if (e.keyCode == 85){
+      p.style.fontVariant = 'small-caps';
+    }
+  })
+});
+
+
+//Stop propagation
+
+let introP = document.querySelector('.intro p')
+let intro = document.querySelector('.intro')
+introP.addEventListener("click", (e) => {
+  changeBg(introP, 'red')
+  e.stopPropagation();
+})
+intro.addEventListener("click", () => changeBg(intro, 'orange'))
+
+//Prevent default
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+  })
+});
