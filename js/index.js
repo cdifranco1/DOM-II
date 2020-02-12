@@ -75,7 +75,10 @@ navLinks.forEach((link) => {
 })
 
 window.addEventListener("scroll", () => {
-  body.style.backgroundColor = "yellow";
+  images.forEach((item) => {
+    item.style.opacity = '1.0';
+    item.style.transition = 'opacity 1s';
+  })
 }, {once: true});
 
 
@@ -85,6 +88,12 @@ midImages.forEach((img) => img.addEventListener("click", () => {
 }))
 
 
+window.addEventListener("load", () => {
+  images.forEach((item) => {
+    item.style.opacity = '.2';
+  }) 
+})
+
 body.addEventListener("keydown", (e) => {
   paragraphs.forEach((p) => {
     if (e.keyCode == 85){
@@ -92,7 +101,6 @@ body.addEventListener("keydown", (e) => {
     }
   })
 });
-
 
 //Stop propagation
 
